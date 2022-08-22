@@ -1,3 +1,8 @@
 # kees/grip
 
-I don't do much!
+A decent little clickable grid
+
+```sh
+npm run watch
+open http://localhost:8280/
+```

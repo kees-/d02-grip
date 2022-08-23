@@ -9,7 +9,7 @@
 (def >evt-now re-frame/dispatch-sync)
 
 (def default-db
-  {:buttons-high (list)})
+  {:on (vec (repeat 8 (vec (repeat 8 false))))})
 
 ;; ========== EFFECTS ==========================================================
 (reg-event-fx
@@ -18,13 +18,13 @@
    {:db default-db}))
 
 (reg-event-db
- ::button-toggle
- (fn [db [_ id]]
-   (let [f (if (some #{id} (:buttons-high db)) #(remove #{%2} %1) conj)]
-     (update db :buttons-high f id))))
+ ::toggle-button
+ (path :on)
+ (fn [on [_ coord]]
+   (update-in on coord not)))
 
 ;; ========== SUBSCRIPTIONS ====================================================
 (reg-sub
- ::buttons-high
- (fn [db _]
-   (:buttons-high db)))
+ ::on?
+ (fn [db [_ [x y]]]
+   (get-in db [:on x y])))

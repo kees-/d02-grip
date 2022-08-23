@@ -3,23 +3,20 @@
             [kees.grip.views.footer :as footer]))
 
 (defn cell
-  [id]
-  (let [buttons (<sub [::rf/buttons-high])]
+  [coord id]
+  (let [on? (<sub [::rf/on? coord])]
     [:div.cell
      [:div.block
       {:id id
-       :style {:background-color (if (some #{id} buttons) "black" "white")}
-       :on-click #(>evt [::rf/button-toggle id])}
-      #_[:article id]]]))
+       :style {:background-color (if on? "black" "white")}
+       :on-click #(>evt [::rf/toggle-button coord])}]]))
 
 (defn grid
   []
   (into
    [:div.container]
-   (for [y (range 8 0 -1)
-         x (range 1 9)
-         :let [id (str x "," y)]]
-     [cell id])))
+   (for [x (range 8) y (range 8)]
+     [cell [x y] (str x "," y)])))
 
 (defn main []
   [:<>

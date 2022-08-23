@@ -28,8 +28,15 @@
 (defn main []
   [:<>
    [:header
-    [:h1 "A ready-to-use re-frame template"]
+    [:h1 "Nice grid"]
     [:hr]]
    [:main
     [grid]]
-   [:footer]])
+   [:footer
+    [:hr]
+    [:ul
+     [:li "There is no state."]
+     [:li "Button activation is controlled by toggling a class onto and off of elements by id."]
+     [:li "The button components are fed ids with the notation of a chessboard."]
+     [:li "The ids are created with list comprehension."]
+     [:li "The grid is laid out with CSS grid."]]]])

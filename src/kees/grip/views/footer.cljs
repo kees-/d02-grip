@@ -14,19 +14,16 @@
 ;; ========== CONTENT ==========================================================
 (defn- changes
   []
-  (ul "State is managed by re-frame."
-      "Click dispatches a toggle event which adds or removes the id to a list."
-      "Performance feels much worse (events lock up the view)."
-      "Button display is an inline style that depends if the id is in the list."
-      "id name is changed to cartesian coordinates."))
+  (ul "The shape of the state and method of calling is very different even though the app still looks identical."
+      "The state db is initialized with an 8×8 2D array of false values."
+      "Fanciness from the coords is stripped down to just [0,7] to allow direct lookups by index."
+      [:<> "Toggling a state only needs " [:code "not"] " applied to the index at the coord position (x,y)!"]))
 
 (defn- questions
   []
   [:article.qa
-   (qa "Why is the state global instead of local to each button?"
-       "I plan to do more state manipulation. I don't really know how easy it would be to access local state when effecting changes.")
-   (qa "How can state management be improved?"
-       "I am going to try turning the state into a 2D boolean array. It can do coordinate lookups instead of scanning the entire list each time.")])
+   (qa "Where is this going?"
+       "What if I could toggle a button from outside the grid? What if something outside the grid could be watching for a specific toggle?")])
 
 (defn afterword
   []

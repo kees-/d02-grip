@@ -16,8 +16,8 @@
   (into
    [:div.container]
    (for [y (range 8 0 -1)
-         x (range 97 105)
-         :let [id (str (char x) y)]]
+         x (range 1 9)
+         :let [id (str x "," y)]]
      [cell id])))
 
 (defn main []
@@ -29,9 +29,10 @@
     [grid]]
    [:footer
     [:hr]
-    [:ul
-     [:li "There is no state."]
-     [:li "Button activation is controlled by toggling a class onto and off of elements by id."]
-     [:li "The button components are fed ids with the notation of a chessboard."]
-     [:li "The ids are created with list comprehension."]
-     [:li "The grid is laid out with CSS grid."]]]])
+    [:div.afterword
+     [:ul
+      [:li "State is managed by re-frame."]
+      [:li "Click dispatches a toggle event which adds or removes the id to a list."]
+      [:li "Performance feels much worse (events lock up the view)."]
+      [:li "Button display is an inline style that depends if the id is in the list."]
+      [:li "id name is changed to cartesian coordinates."]]]]])

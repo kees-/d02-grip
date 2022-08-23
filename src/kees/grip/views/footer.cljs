@@ -12,7 +12,6 @@
   ([q a] [:<> [:p.q q] [:p.a a]]))
 
 ;; ========== CONTENT ==========================================================
-
 (defn- changes
   []
   (ul "State is managed by re-frame."

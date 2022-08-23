@@ -33,16 +33,6 @@ main {
   margin: 2rem 0 6rem;
 }
 
-ul {
-  display: flex;
-  flex-direction: column;
-  gap: .4rem;
-}
-
-footer ul {
-  padding: 1rem;
-}
-
 .container {
   /* Container size and position */
   margin: 0 auto;
@@ -60,6 +50,47 @@ footer ul {
   /* Grid styling */
   column-gap: 5px;
   gap: 5px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+footer ul {
+  padding: 1rem;
+}
+
+footer nav {
+  margin: 0.75rem 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+footer nav a {
+  padding: 0.1rem 0.3rem;
+  text-decoration: none;
+  color: ivory;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+footer nav a:visited {
+  color: linen;
+}
+
+footer nav a:hover {
+  text-decoration: none;
+  background: ivory;
+  color: burlywood;
+}
+
+footer nav a:active {
+  text-decoration: none;
+  background: none;
+  color: ivory;
 }
 
 .afterword {

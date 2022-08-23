@@ -30,4 +30,7 @@
     [grid]]
    [:footer
     [:hr]
+    [:nav
+     [:a#previous {:href "#"} "Previous"]
+     [:a#next {:href "#"} "Next"]]
     [footer/afterword]]])

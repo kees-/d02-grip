@@ -9,7 +9,7 @@
 (def >evt-now re-frame/dispatch-sync)
 
 (def default-db
-  {})
+  {:buttons-high (list)})
 
 ;; ========== EFFECTS ==========================================================
 (reg-event-fx
@@ -17,8 +17,14 @@
  (fn [_ _]
    {:db default-db}))
 
+(reg-event-db
+ ::button-toggle
+ (fn [db [_ id]]
+   (let [f (if (some #{id} (:buttons-high db)) #(remove #{%2} %1) conj)]
+     (update db :buttons-high f id))))
+
 ;; ========== SUBSCRIPTIONS ====================================================
 (reg-sub
- ::test
+ ::buttons-high
  (fn [db _]
-   db))
+   (:buttons-high db)))

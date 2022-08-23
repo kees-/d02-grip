@@ -9,24 +9,28 @@ body {
 }
 
 html {
+  width: 100vw;
   background: burlywood;
   color: ivory;
-  width: 100vw;
 }
 
 hr {
-  border: 0;
   height: 1px;
+  border: 0;
   background: floralwhite;
 }
 
 header, footer {
-  padding: 2rem 3rem 2rem;
   width: 100%;
+  padding: 2rem 3rem 2rem;
 }
 
 header h1 {
   padding: 0 0 .2rem .75rem;
+}
+
+main {
+  margin: 2rem 0 6rem;
 }
 
 ul {
@@ -36,21 +40,7 @@ ul {
 }
 
 footer ul {
-  border: 6px solid silver;
-  border-style: double;
-  margin: 2rem auto 4rem;
   padding: 0.75rem 3rem;
-  background: linen;
-  max-width: 550px;
-  min-width: 350px;
-  font-size: 1.25rem;
-  color: slategrey;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-main {
-  margin: 2rem 0 6rem;
 }
 
 .container {
@@ -72,17 +62,35 @@ main {
   gap: 5px;
 }
 
+.afterword {
+  /* Container size and position */
+  margin: 2rem auto 4rem;
+  max-width: 550px;
+  min-width: 350px;
+
+  /* Container styling */
+  background: linen;
+  border: 6px double silver;
+
+  /* Type */
+  font-size: 1.25rem;
+  color: slategrey;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
 .cell {
-  background-color: wheat;
   height: 4rem;
   width: 4rem;
+  background-color: wheat;
 }
 
 .block {
-  background-color: white;
   width: 85%;
   height: 85%;
   margin: 7.5%;
+  display: grid;
+  place-content: center;
 }
 
 .block:hover {
@@ -91,8 +99,4 @@ main {
 
 .block:active {
   border: 3px inset wheat;
-}
-
-.on {
-  background-color: black;
 }

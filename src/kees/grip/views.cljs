@@ -1,20 +1,15 @@
 (ns kees.grip.views
   (:require [kees.grip.rf :as rf :refer [<sub >evt]]))
 
-(defn toggle-class
-  [id]
-  (let [el (.getElementById js/document id)
-        classes (.-classList el)]
-    (if (some #{"on"} (seq classes))
-      (.remove classes "on")
-      (.add classes "on"))))
-
 (defn cell
   [id]
-  [:div.cell
-   [:div.block
-    {:id id
-     :on-click #(toggle-class id)}]])
+  (let [buttons (<sub [::rf/buttons-high])]
+    [:div.cell
+     [:div.block
+      {:id id
+       :style {:background-color (if (some #{id} buttons) "black" "white")}
+       :on-click #(>evt [::rf/button-toggle id])}
+      #_[:article id]]]))
 
 (defn grid
   []

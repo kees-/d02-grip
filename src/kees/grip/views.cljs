@@ -1,5 +1,4 @@
-(ns kees.grip.views
-  (:require [kees.grip.rf :as rf :refer [<sub >evt]]))
+(ns kees.grip.views)
 
 (defn toggle-class
   [id]

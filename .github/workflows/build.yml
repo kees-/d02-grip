@@ -1,0 +1,48 @@
+name: Publish a sequential branch
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - 'main'
+    paths:
+      - 'src/**'
+      - 'resources/public/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # env:
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Access cache (Maven)
+        uses: actions/cache@v3.0.2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/shadow-cljs.edn', '.github/workflows/**') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Access cache (NPM)
+        uses: actions/cache@v3.0.2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      - name: Access cache (shadow-cljs)
+        if: steps.pf.outputs.source == 'true'
+        uses: actions/cache@v3.0.2
+        with:
+          path: .shadow-cljs
+          key: ${{ runner.os }}-shadow-cljs-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-shadow-cljs-
+
+      - name: Test out envs
+        run: |
+          pwd
+          echo ${{ github.ref_name }}
+          ls .

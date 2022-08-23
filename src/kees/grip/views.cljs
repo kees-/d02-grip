@@ -1,5 +1,6 @@
 (ns kees.grip.views
-  (:require [kees.grip.rf :as rf :refer [<sub >evt]]))
+  (:require [kees.grip.rf :as rf :refer [<sub >evt]]
+            [kees.grip.views.footer :as footer]))
 
 (defn cell
   [id]
@@ -29,10 +30,4 @@
     [grid]]
    [:footer
     [:hr]
-    [:div.afterword
-     [:ul
-      [:li "State is managed by re-frame."]
-      [:li "Click dispatches a toggle event which adds or removes the id to a list."]
-      [:li "Performance feels much worse (events lock up the view)."]
-      [:li "Button display is an inline style that depends if the id is in the list."]
-      [:li "id name is changed to cartesian coordinates."]]]]])
+    [footer/afterword]]])

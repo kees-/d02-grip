@@ -43,6 +43,4 @@ jobs:
 
       - name: Test out envs
         run: |
-          pwd
-          echo ${{ github.ref_name }}
-          ls .
+          script/build ${{ github.ref_name }}

@@ -1,0 +1,73 @@
+name: Publish a sequential branch
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - 'main'
+    paths:
+      - 'src/**'
+      - 'resources/public/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name:  Repo checkout
+        uses: actions/checkout@main
+
+      - name: Access cache (Maven)
+        uses: actions/cache@main
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/shadow-cljs.edn', '.github/workflows/**') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Access cache (NPM)
+        uses: actions/cache@main
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      - name: Access cache (shadow-cljs)
+        uses: actions/cache@main
+        with:
+          path: .shadow-cljs
+          key: ${{ runner.os }}-shadow-cljs-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-shadow-cljs-
+
+      - name: Branch prefix
+        id: var
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          echo "::set-output name=prefix::$(echo ${BRANCH%%-*})"
+
+      - name: Run build script
+        run: |
+          script/build ${{ github.ref_name }}
+
+      - name: Sync with S3
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        with:
+          args: --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SOURCE_DIR: ${{ format('tmp/release/{0}', steps.var.outputs.prefix) }}
+          DEST_DIR: ${{ format('projects/d02-grip/{0}', steps.var.outputs.prefix) }}
+
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: ${{ secrets.AWS_CF_DISTRIBUTION }}
+          PATHS: "/*"
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

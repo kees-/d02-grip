@@ -64,9 +64,23 @@ footer ul {
 
 footer nav {
   margin: 0.75rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+footer nav span {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+#previous {
+  align-self: flex-start;
+}
+#index {
+  align-self: center;
+}
+#next {
+  align-self: flex-end;
 }
 
 footer nav a {

@@ -40,7 +40,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-shadow-cljs-
 
-      - uses: jungwinter/split@main
+      - uses: jungwinter/split@master
         id: branch
         with:
           msg: ${{ github.ref_name }}
@@ -49,12 +49,12 @@ jobs:
       # Should output a var steps.branch-id.outputs._0 = ### branch number prefix
       # Now the convention just needs to be followed!
 
-      - name: Test out envs
+      - name: Run build script
         run: |
           script/build ${{ github.ref_name }}
 
       - name: Sync with S3
-        uses: jakejarvis/s3-sync-action@main
+        uses: jakejarvis/s3-sync-action@master
         with:
           args: --delete
         env:
@@ -62,11 +62,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: ${{ format('/tmp/release/{0}', steps.branch.outputs._0) }}
-          DEST_DIR: ${{ format('projects/d02-grip/{1}', steps.branch.outputs._0) }}
+          SOURCE_DIR: ${{ format('tmp/release/{0}', steps.branch.outputs._0) }}
+          DEST_DIR: ${{ format('projects/d02-grip/{0}', steps.branch.outputs._0) }}
 
       - name: Invalidate CloudFront
-        uses: chetan/invalidate-cloudfront-action@main
+        uses: chetan/invalidate-cloudfront-action@v2
         env:
           DISTRIBUTION: ${{ secrets.AWS_CF_DISTRIBUTION }}
           PATHS: "/*"

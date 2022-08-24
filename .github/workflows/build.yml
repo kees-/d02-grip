@@ -54,7 +54,7 @@ jobs:
           script/build ${{ github.ref_name }}
 
       - name: Sync with S3
-        uses: jakejarvis/s3-sync-action@master
+        uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: --delete
         env:

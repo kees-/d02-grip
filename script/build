@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+npm install
+npm run release
+
+dir="tmp/release/${1%%-*}"
+
+mkdir -p "${dir}/"
+mv resources/public/* "${dir}/"
+rm "${dir}/favicon.ico" "${dir}/_js/compiled/manifest.edn"
+
+echo "============================================================"
+echo "Build output:"
+tree "${dir}"
+echo "============================================================"

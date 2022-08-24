@@ -12,12 +12,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # env:
     steps:
-      - uses: actions/checkout@v3
+      - name:  Repo checkout
+        uses: actions/checkout@main
 
       - name: Access cache (Maven)
-        uses: actions/cache@v3.0.2
+        uses: actions/cache@main
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/shadow-cljs.edn', '.github/workflows/**') }}
@@ -25,7 +25,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Access cache (NPM)
-        uses: actions/cache@v3.0.2
+        uses: actions/cache@main
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
@@ -33,14 +33,43 @@ jobs:
             ${{ runner.os }}-node-modules-
 
       - name: Access cache (shadow-cljs)
-        if: steps.pf.outputs.source == 'true'
-        uses: actions/cache@v3.0.2
+        uses: actions/cache@main
         with:
           path: .shadow-cljs
           key: ${{ runner.os }}-shadow-cljs-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-shadow-cljs-
 
+      - uses: jungwinter/split@main
+        id: branch
+        with:
+          msg: ${{ github.ref_name }}
+          separator: "-"
+          maxsplit: 1
+      # Should output a var steps.branch-id.outputs._0 = ### branch number prefix
+      # Now the convention just needs to be followed!
+
       - name: Test out envs
         run: |
           script/build ${{ github.ref_name }}
+
+      - name: Sync with S3
+        uses: jakejarvis/s3-sync-action@main
+        with:
+          args: --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SOURCE_DIR: ${{ format('/tmp/release/{0}', steps.branch.outputs._0) }}
+          DEST_DIR: ${{ format('projects/d02-grip/{1}', steps.branch.outputs._0) }}
+
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@main
+        env:
+          DISTRIBUTION: ${{ secrets.AWS_CF_DISTRIBUTION }}
+          PATHS: "/*"
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

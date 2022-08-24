@@ -3,10 +3,14 @@
 npm install
 npm run release
 
-dir="/tmp/release/${1}"
+dir="/tmp/release/${1%%-}"
 
 mkdir -p "${dir}/"
 mv -iv resources/public/* "${dir}/"
-rm "${dir}/favicon.ico"
+rm "${dir}/favicon.ico" "${dir}/_js/compiled/manifest.edn"
 
+echo "============================================================"
 tree "${dir}"
+echo "------------------------------------------------------------"
+echo "1: ${1}\n dir: ${dir}"
+echo "============================================================"

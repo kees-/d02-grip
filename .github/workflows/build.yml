@@ -40,14 +40,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-shadow-cljs-
 
-      - uses: jungwinter/split@master
-        id: branch
-        with:
-          msg: ${{ github.ref_name }}
-          separator: "-"
-          maxsplit: 1
-      # Should output a var steps.branch-id.outputs._0 = ### branch number prefix
-      # Now the convention just needs to be followed!
+      - name: Branch prefix
+        id: var
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          echo "::set-output name=prefix::$(echo ${BRANCH%%-*})"
 
       - name: Run build script
         run: |
@@ -62,8 +60,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: ${{ format('tmp/release/{0}', steps.branch.outputs._0) }}
-          DEST_DIR: ${{ format('projects/d02-grip/{0}', steps.branch.outputs._0) }}
+          SOURCE_DIR: ${{ format('tmp/release/{0}', steps.var.outputs.prefix) }}
+          DEST_DIR: ${{ format('projects/d02-grip/{0}', steps.var.outputs.prefix) }}
 
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2

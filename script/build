@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
+# If arg has numerical prefix
+if (( 10#${1%%-*} >= 0 )) 2>/dev/null; then
+  # Ensure leading zeroes
+  prefix=$(printf %03d "$((10#${1%%-*}))")
+else
+  # Sub spaces with -
+  prefix="${1// /-}"
+fi
+
 npm install
 npm run release
 
-dir="tmp/release/${1%%-*}"
+dir="tmp/release/${prefix}"
 
 mkdir -p "${dir}/"
 mv resources/public/* "${dir}/"

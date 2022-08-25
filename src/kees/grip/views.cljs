@@ -1,6 +1,7 @@
 (ns kees.grip.views
   (:require [kees.grip.rf :as rf :refer [<sub >evt]]
-            [kees.grip.views.footer :as footer]))
+            [kees.grip.views.footer :as footer]
+            [kees.grip.views.forms :as forms]))
 
 (defn cell
   [coord id]
@@ -24,7 +25,8 @@
     [:h1 "Nice grid"]
     [:hr]]
    [:main
-    [grid]]
+    [grid]
+    [forms/control-panel]]
    [:footer
     [:hr]
     [:nav

@@ -23,6 +23,11 @@
  (fn [on [_ coord]]
    (update-in on coord not)))
 
+(reg-event-fx
+ ::toggle-single-button-form
+ (fn [_ [_ {{:keys [x y]} :values}]]
+   {:fx [[:dispatch [::toggle-button [(int x) (int y)]]]]}))
+
 ;; ========== SUBSCRIPTIONS ====================================================
 (reg-sub
  ::on?

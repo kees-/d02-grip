@@ -1,78 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 
+/* ========== PAGEWIDE CHANGES ============================================== */
 * {
   font-family: 'Lora', serif;
 }
-
-body {
-  width: 100vw;
-}
-
 html {
   width: 100vw;
   background: burlywood;
   color: ivory;
 }
+body {
+  width: 100vw;
+}
 
+/* ========== PAGEWIDE ELEMENTS ============================================= */
 hr {
   height: 1px;
   border: 0;
   background: floralwhite;
 }
-
-header, footer {
-  width: 100%;
-  padding: 2rem 3rem 2rem;
-}
-
-header h1 {
-  padding: 0 0 .2rem .75rem;
-}
-
-main {
-  margin: 2rem 0 6rem;
-}
-
-.container {
-  /* Container size and position */
-  margin: 0 auto;
-  max-width: max-content;
-
-  /* Container styling */
-  outline: 8px outset sienna;
-  background-color: peru;
-
-  /* Grid setup */
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-
-  /* Grid styling */
-  column-gap: 5px;
-  gap: 5px;
-}
-
 ul {
   display: flex;
   flex-direction: column;
   gap: .4rem;
-}
-
-footer ul {
   padding: 1rem;
 }
+code {
+  font-family: monospace;
+  background-color: linen;
+  border-radius: 0.3rem;
+  padding: 0 0.25rem;
+  font-size: 0.9em;
+  filter: brightness(1.05);
+}
 
+/* ========== SIDE SECTIONS ================================================= */
+header, footer {
+  width: 100%;
+  padding: 2rem 3rem 2rem;
+}
+header h1 {
+  padding: 0 0 .2rem .75rem;
+}
+
+/* ========== SIDE SECTION ELEMENTS ========================================= */
 footer nav {
   margin: 0.75rem 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
-
 footer nav span {
   display: flex;
   flex-direction: column;
 }
-
 #previous {
   align-self: flex-start;
 }
@@ -82,7 +62,6 @@ footer nav span {
 #next {
   align-self: flex-end;
 }
-
 footer nav a {
   padding: 0.1rem 0.3rem;
   text-decoration: none;
@@ -90,30 +69,18 @@ footer nav a {
   font-size: 1.1rem;
   font-weight: 700;
 }
-
 footer nav a:visited {
   color: linen;
 }
-
 footer nav a:hover {
   text-decoration: none;
   background: ivory;
   color: burlywood;
 }
-
 footer nav a:active {
   text-decoration: none;
   background: none;
   color: ivory;
-}
-
-code {
-  font-family: monospace;
-  background-color: linen;
-  border-radius: 0.3rem;
-  padding: 0 0.25rem;
-  font-size: 0.9em;
-  filter: brightness(1.05);
 }
 
 .afterword {
@@ -137,32 +104,52 @@ code {
   font-weight: 500;
   line-height: 1.4;
 }
-
 .afterword summary {
   margin: 0 -1rem;
   padding: 0.25rem 0.5rem;
   cursor: pointer;
   font-weight: 700;
 }
-
 .afterword summary:hover {
   backdrop-filter: brightness(0.95);
 }
 
+/* Question and answer afterword format */
 .qa {
   display: flex;
   flex-direction: column;
 }
-
 .q {
   font-style: italic;
   font-size: 1.1rem;
 }
-
 .a {
   padding: 0.4rem 5rem 0.75rem 1.2rem;
   font-size: 0.9rem;
   filter: brightness(1.15);
+}
+
+/* ========== MAIN CONTENT LAYOUT =========================================== */
+main {
+  margin: 2rem 0 6rem;
+}
+.container {
+  /* Container size and position */
+  margin: 0 auto;
+  max-width: max-content;
+
+  /* Container styling */
+  outline: 8px outset sienna;
+  background-color: peru;
+
+  /* Grid setup */
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+
+  /* Grid styling */
+  column-gap: 5px;
+  gap: 5px;
 }
 
 .cell {
@@ -170,7 +157,6 @@ code {
   width: 4rem;
   background-color: wheat;
 }
-
 .block {
   width: 85%;
   height: 85%;
@@ -178,11 +164,9 @@ code {
   display: grid;
   place-content: center;
 }
-
 .block:hover {
   border: 4px solid skyblue;
 }
-
 .block:active {
   border: 3px inset wheat;
 }

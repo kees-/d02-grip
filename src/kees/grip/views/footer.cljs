@@ -14,16 +14,18 @@
 ;; ========== CONTENT ==========================================================
 (defn- changes
   []
-  (ul "The shape of the state and method of calling is very different even though the app still looks identical."
-      "The state db is initialized with an 8×8 2D array of false values."
-      "Fanciness from the coords is stripped down to just [0,7] to allow direct lookups by index."
-      [:<> "Toggling a state only needs " [:code "not"] " applied to the index at the coord position (x,y)!"]))
+  (ul [:<> "First steps are taken for " [:strong "actions"] " and " [:strong "behavior"] " that interact with the grid."]
+      [:<> [:a {:href "https://github.com/luciodale/fork" :target "_blank"} "fork"] " is introduced to create modular panels."]
+      "Panels are external to the grid and can adjust state without interacting directly with buttons."
+      "The simple concept will allow for more interesting actions than repeating what can already be done."))
 
 (defn- questions
   []
   [:article.qa
-   (qa "Where is this going?"
-       "What if I could toggle a button from outside the grid? What if something outside the grid could be watching for a specific toggle?")])
+   (qa "What panels could be introduced next?"
+       "How about toggling multiple buttons at once, or toggling one button's neighbors.")
+   (qa "And then?..."
+       "A sensor that lights when a specific button is on.")])
 
 (defn afterword
   []

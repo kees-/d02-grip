@@ -26,7 +26,7 @@
 (reg-event-fx
  ::toggle-single-button-form
  (fn [_ [_ {{:keys [x y]} :values}]]
-   {:fx [[:dispatch [::toggle-button [(int x) (int y)]]]]}))
+   {:fx [[:dispatch [::toggle-button [(int y) (int x)]]]]}))
 
 ;; ========== SUBSCRIPTIONS ====================================================
 (reg-sub

@@ -9,6 +9,7 @@
  `001-stateless` | A decent little clickable grid (bad on mobile)
  `002-list-lookup-state` | Grid toggle is refactored to use state
  `003-bool-array-state` | Grid state is improved
+ `004-control-panel` | Input panels for grid interaction
 
 </details>
 
@@ -84,7 +85,10 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 		- Introduce [specter](https://github.com/redplanetlabs/specter) for incoming application of rules
 	- :green_book: Prepare for data transformation
 		- Introduce QOL form creation library ([fork](https://github.com/luciodale/fork)?)
-	- Data in
+	- :pencil2: Data in
+		- :white_check_mark: Control panel
+		- :white_check_mark: Basic actions
+		- Continue with basic input actions
 	- Data out
 	- Data transforms
 - :books: Evolution

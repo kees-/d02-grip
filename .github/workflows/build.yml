@@ -2,6 +2,7 @@ name: Publish a sequential branch
 
 on:
   workflow_dispatch:
+  create:
   push:
     branches-ignore:
       - 'main'

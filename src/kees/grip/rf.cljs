@@ -23,6 +23,12 @@
  (fn [on [_ coord]]
    (update-in on coord not)))
 
+(reg-event-db
+ ::multi-toggle-button
+ (path :on)
+ (fn [on [_ & coords]]
+   (reduce #(update-in %1 %2 not) on coords)))
+
 (reg-event-fx
  ::toggle-single-button-form
  (fn [_ [_ {{:keys [x y]} :values}]]

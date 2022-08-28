@@ -22,12 +22,12 @@
       [:p "Toggle a single button"]
       [:span
        [:label {:name "x"} "X:"]
-       [:input.w3r {:name "x"
+       [:input.w2r {:name "x"
                     :placeholder "X"
                     :value x
                     :on-change handle-change}]
        [:label {:name "y"} "Y:"]
-       [:input.w3r {:name "y"
+       [:input.w2r {:name "y"
                     :placeholder "Y"
                     :value y
                     :on-change handle-change}]]
@@ -46,11 +46,11 @@
        [:p "Status of a single button"]
        [:span
         [:label {:name "x"} "X:"]
-        [:input.w3r {:name "x"
+        [:input.w2r {:name "x"
                      :value (@coord 0)
                      :on-change #(->> % .-target .-value int (swap! coord assoc 0))}]
         [:label {:name "y"} "Y:"]
-        [:input.w3r {:name "y"
+        [:input.w2r {:name "y"
                      :value (@coord 1)
                      :on-change #(->> % .-target .-value int (swap! coord assoc 1))}]]
        [led @coord]])))

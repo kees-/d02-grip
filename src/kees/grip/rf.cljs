@@ -29,13 +29,21 @@
  (fn [on [_ & coords]]
    (reduce #(update-in %1 %2 not) on coords)))
 
-(reg-event-fx
+(reg-event-db
  ::toggle-single-button-form
- (fn [_ [_ {{:keys [x y]} :values}]]
-   {:fx [[:dispatch [::toggle-button [(int y) (int x)]]]]}))
+ (path :on)
+ (fn [on [_ {{:keys [x y]} :values}]]
+   (update-in on [(int x) (int y)] not)))
 
 ;; ========== SUBSCRIPTIONS ====================================================
 (reg-sub
  ::on?
  (fn [db [_ [x y]]]
    (get-in db [:on x y])))
+
+(reg-sub
+ ::button-color
+ (fn [db [_ [x y]]]
+   (if (get-in db [:on x y])
+     "black"
+     "white")))

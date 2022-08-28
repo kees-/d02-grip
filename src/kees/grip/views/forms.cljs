@@ -12,46 +12,48 @@
 (defn- toggle-single-button-form
   []
   [fork/form
-   {:initial-values {:x "0"
-                     :y "0"}
+   {:initial-values {:x 0
+                     :y 0}
     :on-submit #(>evt [::rf/toggle-single-button-form %])
     :keywordize-keys true}
-   (fn [{:keys [values handle-submit handle-change]}]
+   (fn [{:keys [handle-submit handle-change]
+         {:keys [x y]} :values}]
      [:div.panel
       [:p "Toggle a single button"]
       [:span
        [:label {:name "x"} "X:"]
        [:input.w3r {:name "x"
-                    :value (:x values)
+                    :placeholder "X"
+                    :value x
                     :on-change handle-change}]
        [:label {:name "y"} "Y:"]
        [:input.w3r {:name "y"
-                    :value (:y values)
+                    :placeholder "Y"
+                    :value y
                     :on-change handle-change}]]
       [submit handle-submit]])])
 
 (defn led
-  [x y]
-  (let [on? (<sub [::rf/on? [(int x) (int y)]])]
+  [coord]
+  (let [on? (<sub [::rf/on? coord])]
     [:div.led {:class (when on? "bright")}]))
 
 (defn single-button-status
   []
-  (let [x (r/atom 0)
-        y (r/atom 0)]
+  (let [coord (r/atom [0 0])]
     (fn []
       [:div.panel
        [:p "Status of a single button"]
        [:span
         [:label {:name "x"} "X:"]
         [:input.w3r {:name "x"
-                     :value @x
-                     :on-change #(->> % .-target .-value (reset! x))}]
+                     :value (@coord 0)
+                     :on-change #(->> % .-target .-value int (swap! coord assoc 0))}]
         [:label {:name "y"} "Y:"]
         [:input.w3r {:name "y"
-                     :value @y
-                     :on-change #(->> % .-target .-value (reset! y))}]]
-       [led @y @x]])))
+                     :value (@coord 1)
+                     :on-change #(->> % .-target .-value int (swap! coord assoc 1))}]]
+       [led @coord]])))
 
 (defn control-panel
   []

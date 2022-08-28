@@ -4,20 +4,19 @@
             [kees.grip.views.forms :as forms]))
 
 (defn cell
-  [coord id]
-  (let [on? (<sub [::rf/on? coord])]
+  [coord]
+  (let [color (<sub [::rf/button-color coord])]
     [:div.cell
      [:div.block
-      {:id id
-       :style {:background-color (if on? "black" "white")}
+      {:style {:background-color color}
        :on-click #(>evt [::rf/toggle-button coord])}]]))
 
 (defn grid
   []
   (into
    [:div.container]
-   (for [x (range 8) y (range 8)]
-     [cell [x y] (str x "," y)])))
+   (for [y (range 8) x (range 8)]
+     [cell [x y]])))
 
 (defn main []
   [:<>

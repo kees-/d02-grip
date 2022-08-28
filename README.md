@@ -53,9 +53,11 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 		- Mindset and goals
 - :white_check_mark: Basic statefulness
 	- :white_check_mark: High-low state values
-	- :white_check_mark: Boolean array state values
+	- :pencil2: Boolean array state values
+		- :white_check_mark: Fix XY swapping
+		- Fix integer coercion with interceptor
 - :books: Schema/spec
-	- Introduce something for validation (I like [malli](https://github.com/metosin/malli))
+	- Introduce something for validation (I like [malli](https://github.com/metosin/malli)?)
 - :books: CI/CD
 	- :pencil2: Branch or tag repo management?
 	- :green_book: Build workflow
@@ -89,7 +91,11 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 		- :white_check_mark: Control panel
 		- :white_check_mark: Basic actions
 		- Continue with basic input actions
-	- Data out
+	- :pencil2: Data out
+		- :white_check_mark: Single button status
+		- :pencil2: Logic gates
+			- :pencil2: Buffer
+			- ...
 	- Data transforms
 - :books: Evolution
 	- Stepwise re-render

@@ -33,7 +33,7 @@ Currently I need to work on custom formatting indices and page navigation, then 
 
 ---
 
-<details>
+<details open>
 <summary>View the loose initial roadmap</summary>
 
 > - :books: Section
@@ -53,9 +53,9 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 		- Mindset and goals
 - :white_check_mark: Basic statefulness
 	- :white_check_mark: High-low state values
-	- :pencil2: Boolean array state values
+	- :white_check_mark: Boolean array state values
 		- :white_check_mark: Fix XY swapping
-		- Fix integer coercion with interceptor
+		- :white_check_mark: Fix integer coercion with interceptor
 - :books: Schema/spec
 	- Introduce something for validation (I like [malli](https://github.com/metosin/malli)?)
 - :books: CI/CD

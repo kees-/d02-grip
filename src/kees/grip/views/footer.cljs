@@ -13,21 +13,21 @@
 
 ;; ========== CONTENT ==========================================================
 (defn- changes
+  "Include a styled list by adding strings to (ul ...)."
   []
-  (ul [:<> "First steps are taken for " [:strong "actions"] " and " [:strong "behavior"] " that interact with the grid."]
-      [:<> [:a {:href "https://github.com/luciodale/fork" :target "_blank"} "fork"] " is introduced to create modular panels."]
-      "Panels are external to the grid and can adjust state without interacting directly with buttons."
-      "The simple concept will allow for more interesting actions than repeating what can already be done."))
+  (ul "Now, the subscriptions are expanded and events are contracted with interceptors to simplify logic."
+      "A status light panel indicates whether a button is on using local state and the same event as each button."
+      [:<> [:a {:href "https://github.com/luciodale/fork" :target "_blank"} "fork"] " is overkill when no typical form submissions occur."]))
 
 (defn- questions
+  "Include styled questions and answers with a sequence of (qa str str) forms."
   []
   [:article.qa
-   (qa "What panels could be introduced next?"
-       "How about toggling multiple buttons at once, or toggling one button's neighbors.")
-   (qa "And then?..."
-       "A sensor that lights when a specific button is on.")])
+   (qa "What's intercepted?"
+       "I originally split logic across events because the form handled submission in a nested map. The input on-change handler pares the values and the interceptor coerces coordinates in a vector to ints.")])
 
 (defn afterword
+  "Acts like a note section or changelog. Add your content inline via the included components."
   []
   [:details.afterword
    [:summary "Notes"]

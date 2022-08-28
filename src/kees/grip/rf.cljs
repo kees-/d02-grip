@@ -1,6 +1,6 @@
 (ns kees.grip.rf
   (:require
-   [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx reg-sub reg-fx reg-cofx path]]))
+   [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx reg-sub reg-fx reg-cofx path ->interceptor]]))
 
 ;; ========== SETUP ============================================================
 (def <sub (comp deref re-frame/subscribe))
@@ -11,6 +11,12 @@
 (def default-db
   {:on (vec (repeat 8 (vec (repeat 8 false))))})
 
+(def vec->ints
+  (->interceptor
+   :id :vec->ints
+   :before (fn [context]
+             (update-in context [:coeffects :event 1] #(mapv int %)))))
+
 ;; ========== EFFECTS ==========================================================
 (reg-event-fx
  ::boot
@@ -19,7 +25,7 @@
 
 (reg-event-db
  ::toggle-button
- (path :on)
+ [(path :on) vec->ints]
  (fn [on [_ coord]]
    (update-in on coord not)))
 
@@ -29,11 +35,6 @@
  (fn [on [_ & coords]]
    (reduce #(update-in %1 %2 not) on coords)))
 
-(reg-event-db
- ::toggle-single-button-form
- (path :on)
- (fn [on [_ {{:keys [x y]} :values}]]
-   (update-in on [(int x) (int y)] not)))
 
 ;; ========== SUBSCRIPTIONS ====================================================
 (reg-sub

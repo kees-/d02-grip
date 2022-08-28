@@ -12,9 +12,8 @@
 (defn- toggle-single-button-form
   []
   [fork/form
-   {:initial-values {:x 0
-                     :y 0}
-    :on-submit #(>evt [::rf/toggle-single-button-form %])
+   {:initial-values {:x 0 :y 0}
+    :on-submit #(>evt [::rf/toggle-button (-> % :values vals vec)])
     :keywordize-keys true}
    (fn [{:keys [handle-submit handle-change]
          {:keys [x y]} :values}]

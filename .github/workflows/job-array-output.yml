@@ -19,8 +19,7 @@ jobs:
         shell: bash
         id: list
         run: |
-          list=($(git branch --all))
-          list=("${list[@]:2}")
+          list=($(git branch --remote))
           echo "::set-output name=branch-list::${list}"
   
   parse-array:

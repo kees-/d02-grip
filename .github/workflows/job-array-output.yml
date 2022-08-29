@@ -20,7 +20,7 @@ jobs:
         id: list
         run: |
           list=($(git branch --remote))
-          echo "::set-output name=branch-list::${list}"
+          echo "::set-output name=branch-list::${list[@]}"
   
   parse-array:
     runs-on: ubuntu-latest

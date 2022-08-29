@@ -18,7 +18,7 @@ jobs:
       - name: Output branch list
         id: list
         run: |
-          list="$(git branch --list)"
+          list="$(git branch --all)"
           echo "${list}"
           echo "::set-output name=branch-list::${list}"
   

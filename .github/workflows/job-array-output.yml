@@ -21,7 +21,7 @@ jobs:
         run: |
           list=($(git branch --all))
           echo "${list}"
-          echo "::set-output name=branch-list::${list[*]}"
+          echo "::set-output name=branch-list::${list[@]:2}"
   
   parse-array:
     runs-on: ubuntu-latest

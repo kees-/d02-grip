@@ -33,7 +33,7 @@ Currently I need to work on custom formatting indices and page navigation, then 
 
 ---
 
-<details open>
+<details>
 <summary>View the loose initial roadmap</summary>
 
 > - :books: Section

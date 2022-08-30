@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+branch="${1}"
+repo="${2}"
+bucket="${3}"
+dist="${4}"
+
+aws s3 cp "tmp/release/grip.html" "s3://${bucket}/projects/${repo}"
+
+aws s3 sync \
+  "tmp/release/${branch}" \
+  "s3://${bucket}/projects/${repo}" \
+  --delete
+
+aws cloudfront create-invalidation \
+  --distribution-id "${dist}" \
+  --paths "/*"

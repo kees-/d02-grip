@@ -1,10 +1,18 @@
 (ns scripts
   (:require [pod.babashka.aws :as aws]
             [pod.babashka.aws.credentials :as cred]
-            [babashka.fs :as fs]
             [clojure.edn :as edn]
+            [clojure.tools.cli :as cli]
             [clojure.string :as s]
             [selmer.parser :as selmer]))
+
+(def cli-opts
+  [["-a" "--aki ID" "Access Key ID"]
+   ["-s" "--sak KEY" "Secret Access Key"]
+   ["-r" "--region REGION" "AWS Region"]
+   ["-b" "--bucket BUCKET" "AWS Bucket"]
+   ["-p" "--branch-prefix PREFIX" "Current Branch Prefix"]
+   ["-n" "--repo-name REPO" "Unqualified Repo Name"]])
 
 (defn branch-prefix-format
   [s]
@@ -20,11 +28,11 @@
 
 (defn live-branches
   [edn]
-  (let [{:keys [bucket repo] :as opts} edn
+  (let [{:keys [bucket repo-name] :as opts} edn
         s3 (client opts)]
     (->> {:op :ListObjectsV2
           :request {:Bucket bucket
-                    :Prefix (str "projects/" repo "/")
+                    :Prefix (str "projects/" repo-name "/")
                     :Delimiter "/"}}
          (aws/invoke s3)
          :CommonPrefixes
@@ -34,11 +42,12 @@
                 :Prefix)))))
 
 (defn write-index-page
-  [arg-map]
-  (prn (edn/read-string arg-map))
-  (let [{:keys [branch] :as edn} (edn/read-string arg-map)
+  [& args]
+  (let [{:keys [branch-prefix] :as edn} (-> *command-line-args*
+                                     (cli/parse-opts cli-opts)
+                                     :options)
         mains (live-branches edn)
-        mains-ordered (->> (conj mains branch)
+        mains-ordered (->> (conj mains branch-prefix)
                            (map (comp first
                                       branch-prefix-format))
                            set

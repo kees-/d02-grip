@@ -100,7 +100,13 @@ jobs:
       # Write index page
       - name: Write index page
         run: |
-          bb run write-index-page "{:aki \"${AWS_AKI}\" :sak \"${AWS_SAK}\" :region \"${AWS_REG}\" :bucket \"${AWS_BKT}\" :branch \"${BRANCH}\" \"${REPO##*/\"}"
+          bb run write-index-page \
+            -a ${AWS_AKI} \
+            -s ${AWS_SAK} \
+            -r ${AWS_REG} \
+            -b ${AWS_BKT} \
+            -p ${BRANCH} \
+            -n ${REPO##*/}
 
       # AWS deploy
       - name: Deploy on AWS

@@ -17,7 +17,7 @@ npm run release
 # My thoughts. I think some combination of rewrite-clj or selmer templates would be much better than a bash script.
 
 # Not really necessary just for isolation
-dir="resources/public/${prefix}"
+dir="resources/public/${BRANCH##-*}"
 mkdir -p "${dir}/"
 mv resources/public/* "${dir}/"
 mv "${dir}/grip.html" "resources/public/"

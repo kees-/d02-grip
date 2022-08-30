@@ -48,6 +48,30 @@ jobs:
             echo "::set-output name=status::FAIL"
           fi
 
+      # Access caches
+      - name: Access cache (Maven)
+        uses: actions/cache@main
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/shadow-cljs.edn', '.github/workflows/**') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Access cache (NPM)
+        uses: actions/cache@main
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+      - name: Access cache (shadow-cljs)
+        uses: actions/cache@main
+        with:
+          path: .shadow-cljs
+          key: ${{ runner.os }}-shadow-cljs-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-shadow-cljs-
+
+
       # End and fail the job if the above condition returns FAIL
       - name: Job gatekeeper
         if: steps.ok.outputs.status == 'FAIL'

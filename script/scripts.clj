@@ -43,9 +43,9 @@
                            set
                            sort
                            reverse)]
-    (spit "tmp/release/grip.html" #_"gripindex.html"
+    (spit "release/grip.html" #_"gripindex.html"
           (selmer/render-file
-           (str "tmp/release/" branch "/grip.html") #_"grip.html"
+           (str "release/" branch "/grip.html") #_"grip.html"
            {:MAINS mains-ordered
             :LATEST (first mains-ordered)}))))
 

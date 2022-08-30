@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Source here
+# https://github.com/unfor19/install-aws-cli-action#other-options
+
+curl \
+  --location \
+  --output "install-aws.sh" \
+  https://raw.githubusercontent.com/unfor19/install-aws-cli-action/master/entrypoint.sh && \
+chmod +x install-aws.sh
+
+./install-aws.sh "v2" "amd64" && \
+rm install-aws.sh

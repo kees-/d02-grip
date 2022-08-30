@@ -128,6 +128,7 @@ footer nav a:active {
 }
 .afterword summary:hover {
   backdrop-filter: brightness(0.95);
+  -webkit-backdrop-filter: brightness(0.95);
 }
 
 /* Question and answer afterword format */
@@ -210,6 +211,7 @@ main {
   padding: 0.5rem 1rem  0.75rem;
   gap: 0.5rem;
   backdrop-filter: brightness(0.96);
+  -webkit-backdrop-filter: brightness(0.96);
 }
 .panel p {
   font-style: italic;
@@ -232,9 +234,10 @@ main {
   padding-left: 1rem;
 }
 .panel input {
+  padding: 0 0.5rem;
   background: rgba(250, 240, 230, 0.3);
   border: 1px solid linen;
-  padding: 0 0.5rem;
+  border-radius: 0;
   color: ivory;
   font-weight: 500;
   text-align: center;

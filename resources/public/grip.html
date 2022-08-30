@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>grip</title>
+  <link rel="stylesheet" href="_css/reset.css">
+  <link rel="stylesheet" href="_css/base.css">
+</head>
+
+<body>
+  <h1>Welcome to grip</h1>
+  <hr>
+  <main>
+    <div><span><a href="{{LATEST}}">View the latest branch</a></span></div>
+    <hr>
+    <div>
+      <span>We got main pages</span>
+      <ul>{% for MAIN in MAINS %}
+        <li><a href="{{MAIN}}">{{MAIN}}</a></li>{% endfor %}
+      </ul>
+    </div>
+    <!-- <div>
+      <span>We got variants on the main pages (naur)</span>
+    </div> -->
+  </main>
+</body>
+
+</html>

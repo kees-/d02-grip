@@ -1,0 +1,3 @@
+{:paths ["src" "script" "resources/public" "tmp"]
+ :pods {org.babashka/aws {:version "0.1.2"}}
+ :tasks {write-index-page scripts/write-index-page}}

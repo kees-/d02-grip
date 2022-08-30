@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+s3_path="s3://${AWS_S3_BUCKET}/projects/${REPO##*/}"
+
+aws s3 cp \
+  "resources/public/grip.html" \
+  "${s3_path}/" \
+
+aws s3 sync \
+  "resources/public/${BRANCH%%-*}/" \
+  "${s3_path}/${BRANCH%%-*}" \
+  --delete
+
+aws cloudfront create-invalidation \
+  --distribution-id "${AWS_CF_DISTRIBUTION}" \
+  --paths "/*"

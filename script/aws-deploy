@@ -5,7 +5,6 @@ s3_path="s3://${AWS_S3_BUCKET}/projects/${REPO##*/}"
 aws s3 cp \
   "resources/public/grip.html" \
   "${s3_path}/" \
-  --region ${AWS_REGION}
 
 aws s3 sync \
   "resources/public/${BRANCH%%-*}" \

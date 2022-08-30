@@ -20,11 +20,11 @@
 
 (defn live-branches
   [edn]
-  (let [{:keys [bucket] :as opts} edn
+  (let [{:keys [bucket repo] :as opts} edn
         s3 (client opts)]
     (->> {:op :ListObjectsV2
           :request {:Bucket bucket
-                    :Prefix "projects/d02-grip/"
+                    :Prefix (str "projects/" repo "/")
                     :Delimiter "/"}}
          (aws/invoke s3)
          :CommonPrefixes
@@ -43,10 +43,10 @@
                            set
                            sort
                            reverse)]
-    (spit "release/grip.html" #_"gripindex.html"
+    (spit "grip.html"
           (selmer/render-file
-           (str "release/" branch "/grip.html") #_"grip.html"
+           "grip.html"
            {:MAINS mains-ordered
             :LATEST (first mains-ordered)}))))
 
-;; bb run render-index-page '{:aki "" :sak "" :region "" :bucket "" :branch ""}'
+;; bb run render-index-page '{:aki "" :sak "" :region "" :bucket "" :branch "" :repo ""}'

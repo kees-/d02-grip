@@ -5,10 +5,10 @@ repo="${2}"
 bucket="${3}"
 dist="${4}"
 
-aws s3 cp "tmp/release/grip.html" "s3://${bucket}/projects/${repo}"
+aws s3 cp "resources/public/grip.html" "s3://${bucket}/projects/${repo}"
 
 aws s3 sync \
-  "tmp/release/${branch}" \
+  "resources/public/${branch}" \
   "s3://${bucket}/projects/${repo}" \
   --delete
 

@@ -1,0 +1,113 @@
+name: Publish or update a branch
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+  # A new branch is created
+  # DISABLED: Problem, it runs twice if PUSHING a NEWLY CREATED branch
+  # create:
+  # If any existing branch except main is pushed and relevant paths have changes
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    env:
+      REPO: ${{ github.repository }}
+      # "The branch or tag name that triggered the workflow run."
+      # Source: https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+      BRANCH: ${{ github.ref_name }}
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_CF_DISTRIBUTION: ${{ secrets.AWS_CF_DISTRIBUTION }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      # Output a condition based on how the branch name is formatted
+      # Valid branch names:
+      #   [committer]number[variant]-descriptive-name
+      #   [committer-]main
+      - name: Verify branch name format
+        id: ok
+        run: |
+          pat='^([[:digit:]]+)([[:alpha:]]*)$'
+          if [[ ${BRANCH%%-*} =~ $pat ]]; then
+            echo "::set-output name=status::SUB"
+          elif [[ ${BRANCH#*-} == "main" ]]; then
+            echo "::set-output name=status::MAIN"
+          else
+            echo "::set-output name=status::FAIL"
+          fi
+
+      # Access caches
+      - name: Access cache (Maven)
+        uses: actions/cache@main
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/shadow-cljs.edn', '.github/workflows/**') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Access cache (NPM)
+        uses: actions/cache@main
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+      - name: Access cache (shadow-cljs)
+        uses: actions/cache@main
+        with:
+          path: .shadow-cljs
+          key: ${{ runner.os }}-shadow-cljs-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-shadow-cljs-
+
+
+      # End and fail the job if the above condition returns FAIL
+      - name: Job gatekeeper
+        if: steps.ok.outputs.status == 'FAIL'
+        uses: actions/github-script@main
+        with:
+          script: core.setFailed('Your branch name appears malformed. Please fix')
+
+      # AWS CLI may be bulkier for these purposes,
+      # But has less friction for executing one-liners.
+      # Source: https://github.com/unfor19/install-aws-cli-action
+      # Using a script instead of marketplace for hands-on control
+      - name: Install AWS CLI
+        run: script/aws-install
+
+      # Babashka is used for rewrite-clj tasks
+      # See bb.edn for task details
+      - name: Setup babashka
+        uses: DeLaGuardo/setup-clojure@main
+        with:
+          bb: 'latest'
+
+      # Build script
+      - name: Build project
+        run: script/build ${BRANCH%%-*}
+
+      # Write index page
+      - name: Write index page
+        run: |
+          bb run write-index-page \
+            -a ${AWS_ACCESS_KEY_ID} \
+            -s ${AWS_SECRET_ACCESS_KEY} \
+            -r ${AWS_REGION} \
+            -b ${AWS_S3_BUCKET} \
+            -p ${BRANCH} \
+            -n ${REPO##*/}
+
+      # AWS deploy
+      - name: Deploy on AWS
+        run: script/aws-deploy

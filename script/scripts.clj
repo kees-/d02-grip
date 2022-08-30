@@ -35,6 +35,7 @@
 
 (defn write-index-page
   [arg-map]
+  (prn (edn/read-string arg-map))
   (let [{:keys [branch] :as edn} (edn/read-string arg-map)
         mains (live-branches edn)
         mains-ordered (->> (conj mains branch)
@@ -43,7 +44,7 @@
                            set
                            sort
                            reverse)]
-    (spit "grip.html"
+    (spit "resources/public/grip.html"
           (selmer/render-file
            "grip.html"
            {:MAINS mains-ordered

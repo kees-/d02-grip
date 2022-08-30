@@ -7,8 +7,8 @@ aws s3 cp \
   "${s3_path}/" \
 
 aws s3 sync \
-  "resources/public/${BRANCH%%-*}" \
-  "${s3_path}" \
+  "resources/public/${BRANCH%%-*}/" \
+  "${s3_path}/${BRANCH%%-*}" \
   --delete
 
 aws cloudfront create-invalidation \

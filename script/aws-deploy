@@ -1,17 +1,16 @@
 #!/usr/bin/env bash
 
-branch="${1}"
-repo="${2}"
-bucket="${3}"
-dist="${4}"
+s3_path="s3://${AWS_S3_BUCKET}/projects/${REPO##*/}"
 
-aws s3 cp "resources/public/grip.html" "s3://${bucket}/projects/${repo}"
+aws s3 cp \
+  "resources/public/grip.html" \
+  "${s3_path}/"
 
 aws s3 sync \
-  "resources/public/${branch}" \
-  "s3://${bucket}/projects/${repo}" \
+  "resources/public/${BRANCH%%-*}" \
+  "${s3_path}" \
   --delete
 
 aws cloudfront create-invalidation \
-  --distribution-id "${dist}" \
+  --distribution-id "${AWS_CF_DISTRIBUTION}" \
   --paths "/*"

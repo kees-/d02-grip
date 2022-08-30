@@ -17,9 +17,11 @@ npm run release
 # My thoughts. I think some combination of rewrite-clj or selmer templates would be much better than a bash script.
 
 # Not really necessary just for isolation
-dir="resources/public/${BRANCH##-*}"
+dir="resources/public/${BRANCH%%-*}"
+mkdir -p "tmp"
+mv resources/public/* tmp/
 mkdir -p "${dir}/"
-mv resources/public/* "${dir}/"
+mv tmp/* "${dir}/"
 mv "${dir}/grip.html" "resources/public/"
 
 # Pare to necessary files

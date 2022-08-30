@@ -110,9 +110,4 @@ jobs:
 
       # AWS deploy
       - name: Deploy on AWS
-        run: |
-          script/aws-deploy \
-            "{BRANCH%%-*}" \
-            "${REPO##*/}" \
-            "${AWS_S3_BUCKET}" \
-            "${AWS_CF_DISTRIBUTION}"
+        run: script/aws-deploy

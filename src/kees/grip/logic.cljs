@@ -1,5 +1,10 @@
 (ns kees.grip.logic)
 
+(def method-string-names
+  {:buffer "Buffer"
+   :not "Not"
+   :t-flip-flop "T Flip-Flop"})
+
 (defmulti rules :type)
 (defmethod rules :default
  [_]
@@ -11,6 +16,12 @@
   (let [[in out] params]
     (fn [m]
       (assoc-in m out (get-in m in)))))
+
+(defmethod rules :not
+ [{:keys [params]}]
+ (let [[in out] params]
+   (fn [m]
+     (assoc-in m out (not (get-in m in))))))
 
 ; If in -> toggle out
 (defmethod rules :t-flip-flop

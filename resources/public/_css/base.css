@@ -222,9 +222,19 @@ main {
   border-bottom: 1px solid floralwhite;
 }
 .panel span {
+  padding: 0;
   display: flex;
   flex-direction: row;
-  padding: 0.5rem;
+  align-self: flex-start;
+}
+.panel span:only-of-type {
+  align-self: center;
+}
+.panel span:first-of-type {
+  padding-top: 0.5rem;
+}
+.panel span:last-of-type {
+  padding-bottom: 0.5rem;
 }
 .panel label {
   padding-right: 0.5rem;
@@ -277,6 +287,14 @@ main {
   border: 1px solid greenyellow;
   background: rgba(173, 255, 47, 0.9);
   box-shadow: 0 0 0.65rem 0.1rem greenyellow, inset 0 0 0.25rem rgba(255, 255, 255, 0.7);
+}
+
+.panel code {
+  color: silver;
+}
+.panel .code-field {
+  font-family: monospace;
+  text-align: left;
 }
 
 .w2r { width: 2rem; }

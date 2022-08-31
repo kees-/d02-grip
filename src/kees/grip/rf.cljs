@@ -62,3 +62,8 @@
    (if (get-in db [:on x y])
      "black"
      "white")))
+
+(reg-sub
+ ::active-rules
+ (fn [{:keys [rules]} _]
+   rules))

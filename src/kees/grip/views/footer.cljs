@@ -26,7 +26,9 @@
   []
   [:article.qa
    (qa "What's implemented so far?"
-       "Buffers and a T flip-flop")
+       "Buffer, Not, and T flip-flop")
+   (qa "What goes in the params field?"
+       [:<> "Currently all three rule types accept two " [:code "[x y]"] " coordinate vectors for in and out coords."])
    (qa "What's the point?"
        "Add a UI for creation, ordering, and deletion of logic gates with specified parameters and you can build circuitry.")])
 

@@ -1,7 +1,9 @@
 (ns kees.grip.views.forms
   (:require [fork.re-frame :as fork]
             [reagent.core :as r]
-            [kees.grip.rf :as rf :refer [<sub >evt]]))
+            [clojure.edn :as edn]
+            [kees.grip.rf :as rf :refer [<sub >evt]]
+            [kees.grip.logic :as logic]))
 
 (defn- submit
   [handler]
@@ -54,6 +56,40 @@
                      :on-change #(->> % .-target .-value int (swap! coord assoc 1))}]]
        [led @coord]])))
 
+(defn add-rule
+  []
+  (let [new-rule-type (r/atom ":buffer")
+        new-rule-params (r/atom "")]
+    (fn []
+      [:div.panel
+       [:p "Add a new rule (LIFO)"]
+       [:span
+        [:label {:name "type"} "Type:"]
+        (into
+         [:select {:name "type"
+                   :on-change #(->> % .-target .-value (reset! new-rule-type))}]
+         (for [method (-> logic/rules methods keys)
+               :when (not= method :default)]
+           [:option {:value (str method)} (method logic/method-string-names)]))]
+       [:span
+        [:label {:name "params"} "Params:"]
+        [:input.code-field {:name "params"
+                            :value @new-rule-params
+                            :on-change #(->> % .-target .-value (reset! new-rule-params))}]]
+       [submit #(do
+                  (>evt [::rf/add-rule
+                         {:type (edn/read-string @new-rule-type)
+                          :params (edn/read-string (str "[" @new-rule-params "]"))}])
+                  (reset! new-rule-params ""))]])))
+
+(defn active-rules
+  []
+  (into
+   [:div.panel
+    [:p "Currently active rules:"]]
+   (for [rule (<sub [::rf/active-rules])]
+     [:span>code (str rule)])))
+
 (defn tick-trigger
   []
   [:div.panel
@@ -65,4 +101,6 @@
   [:div.control-panel
    [toggle-single-button-form]
    [single-button-status]
+   [add-rule]
+   [active-rules]
    [tick-trigger]])

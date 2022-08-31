@@ -84,7 +84,8 @@ jobs:
       # Source: https://github.com/unfor19/install-aws-cli-action
       # Using a script instead of marketplace for hands-on control
       - name: Install AWS CLI
-        run: script/aws-install
+        uses: unfor19/install-aws-cli-action@v1.0.3
+        # run: script/aws-install
 
       # Babashka is used for rewrite-clj tasks
       # See bb.edn for task details

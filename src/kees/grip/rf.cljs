@@ -1,6 +1,7 @@
 (ns kees.grip.rf
   (:require
-   [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx reg-sub reg-fx reg-cofx path ->interceptor]]))
+   [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx reg-sub reg-fx reg-cofx path ->interceptor]]
+   [kees.grip.logic :as logic]))
 
 ;; ========== SETUP ============================================================
 (def <sub (comp deref re-frame/subscribe))
@@ -9,8 +10,10 @@
 (def >evt-now re-frame/dispatch-sync)
 
 (def default-db
-  {:on (vec (repeat 8 (vec (repeat 8 false))))})
+  {:on (vec (repeat 8 (vec (repeat 8 false))))
+   :rules []})
 
+; Ensure maps of coordinates passed to handlers are ints
 (def vec->ints
   (->interceptor
    :id :vec->ints
@@ -22,6 +25,12 @@
  ::boot
  (fn [_ _]
    {:db default-db}))
+
+; Take every rule present and apply it to the grid back-to-front
+(reg-event-fx
+ ::tick
+ (fn [{:keys [db]} _]
+   {:db (update db :on (apply comp (mapv logic/rules (:rules db))))}))
 
 (reg-event-db
  ::toggle-button
@@ -35,6 +44,11 @@
  (fn [on [_ & coords]]
    (reduce #(update-in %1 %2 not) on coords)))
 
+; Redundant for sake of data hints
+(reg-event-db
+ ::add-rule
+ (fn [db [_ {:keys [type params]}]]
+   (update db :rules conj {:type type :params params})))
 
 ;; ========== SUBSCRIPTIONS ====================================================
 (reg-sub

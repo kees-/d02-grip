@@ -54,8 +54,15 @@
                      :on-change #(->> % .-target .-value int (swap! coord assoc 1))}]]
        [led @coord]])))
 
+(defn tick-trigger
+  []
+  [:div.panel
+   [:p "Tick"]
+   [submit #(>evt [::rf/tick])]])
+
 (defn control-panel
   []
   [:div.control-panel
    [toggle-single-button-form]
-   [single-button-status]])
+   [single-button-status]
+   [tick-trigger]])

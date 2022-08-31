@@ -10,6 +10,7 @@
  `002-list-lookup-state` | Grid toggle is refactored to use state
  `003-bool-array-state` | Grid state is improved
  `004-control-panel` | Input panels for grid interaction
+ `005-ruleset` | **Unreleased:** Apply a stateful series of logic gates
 
 </details>
 
@@ -27,13 +28,13 @@ The project is not meant to be built manually but it can be done with `npm run r
 
 I am working on a unique CI/CD workflow using branches instead of releases. All development occurs on `main`. A branch is created at any milestone which will publish IN PARALLEL to all other branches. I use numerical prefixes which is ultimately arbitrary.
 
-Currently I need to work on custom formatting indices and page navigation, then the effect will work. I want a visitor to step through live builds to see the progress and if interested, read my thoughts on them. Some ideas are using a template parser (i.e [selmer, included in babashka](https://book.babashka.org/#built-in-namespaces), which could be run from the repo or [in an action](https://github.com/marketplace/actions/setup-clojure)), or scraping the existing live pages and forcing in new dom nodes.
+Currently I need to work on custom formatting indices and page navigation, then the effect will work. I want a visitor to step through live builds to see the progress and if interested, read thoughts on them. Some ideas are using a template parser (i.e [selmer, included in babashka](https://book.babashka.org/#built-in-namespaces), which could be run from the repo or [in an action](https://github.com/marketplace/actions/setup-clojure)), or scraping the existing live pages and forcing in new dom nodes.
 
 **For now, view the main branch here:** [hardly.link/projects/d02-grip/](https://hardly.link/projects/d02-grip/)
 
 ---
 
-<details>
+<details open>
 <summary>View the loose initial roadmap</summary>
 
 > - :books: Section
@@ -43,7 +44,7 @@ Currently I need to work on custom formatting indices and page navigation, then 
 > - :eight_pointed_black_star: Completed and unreleased
 > - :white_check_mark: Completed and released
 
-What is this list formatting? I’m trying out a style of list [I wrote about adapting here](https://www.are.na/block/17704579). It's an informal and currently manual notation for managing projects that are too small to need some grand kanban deck.
+What is this list formatting? I’m trying out a style of list [I wrote about adapting here](https://www.are.na/block/17704579). It's an informal and currently manual notation for managing projects that are too small to need a grand kanban deck.
 
 ---
 
@@ -59,46 +60,53 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 - :books: Schema/spec
 	- Introduce something for validation (I like [malli](https://github.com/metosin/malli)?)
 - :books: CI/CD
-	- :pencil2: Branch or tag repo management?
-	- :green_book: Build workflow
+	- :white_check_mark: Branch or tag repo management?
+	- :pencil2: Build workflow
 		- :pencil2: Create post-build script
 			- :white_check_mark: Normal build
 			- :white_check_mark: Accept a string argument that will propagate
 			- :white_check_mark: Either switch HTML refs to relative paths OR just watch reloads
 			- :white_check_mark: Upload build to SPECIFIC path of S3 bucket, deleting
+			- :white_check_mark: Upload index to SPECIFIC path of S3 bucket, file only
 			- :white_check_mark: Invalidate CloudFront
-			- Integrate `bb` to start redoing the primitive versions in clj scripts
+			- :white_check_mark: Integrate `bb` to start redoing the primitive versions in clj scripts
 			- :pencil2: Complete pagination
-				- :green_book: Create index page linking to all published pages
-					- Versions (e.g `003`)
+				- :pencil2: Create index page linking to all published pages
+					- :white_check_mark: Versions (e.g `003`)
 					- Variants (e.g `003a`)
 				- :pencil2: Create back and next buttons
 			- :green_book: Further dom population
 				- Insert github link to repo branch
 				- Basic info "built from xxx in user/repo"
 				- Page title from branch name?
-			- Upload index to SPECIFIC path of S3 bucket, file only
-		- :pencil2: Create github action
+			- Style index page
+		- :white_check_mark: Create github action
 			- :white_check_mark: Detect some change (branch, tag)
-			- Execute the post-build script with necessary data
-		- Revise early published versions once workflow completed
+			- :white_check_mark: Execute the post-build script with necessary data
+		- :pencil2: Revise early published versions once workflow completed
 - :books: Malleability
 	- :green_book: Refine data transformations
-		- Introduce [specter](https://github.com/redplanetlabs/specter) for incoming application of rules
+		- Introduce [specter](https://github.com/redplanetlabs/specter) for incoming application of rules?
 	- :green_book: Prepare for data transformation
-		- Introduce QOL form creation library ([fork](https://github.com/luciodale/fork)?)
+		- :white_check_mark: Introduce QOL form creation library ([fork](https://github.com/luciodale/fork)?)
+		- Explore alternatives for simplicity
 	- :pencil2: Data in
 		- :white_check_mark: Control panel
 		- :white_check_mark: Basic actions
-		- Continue with basic input actions
+		- Continue with basic input actions as needed
+		- Read from saved grid and ruleset: program abstraction
 	- :pencil2: Data out
 		- :white_check_mark: Single button status
-		- :pencil2: Logic gates
-			- :pencil2: Buffer
-			- ...
+		- Side effects
+		- Save state and rules as accessible program
 	- Data transforms
+		- :pencil2: Logic gates
+			- :white_check_mark: Buffer
+			- :white_check_mark: T flip-flop
+			- ...
+		- Logic gate status lights, styling, diagrams
 - :books: Evolution
-	- Stepwise re-render
-	- Tick
+	- Stepwise re-render, time
+	- :white_check_mark: Tick
 
 </details>

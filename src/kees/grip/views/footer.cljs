@@ -1,5 +1,6 @@
 (ns kees.grip.views.footer)
 
+;; ========== SETUP ============================================================
 (defn- ul
   [& li]
   (into
@@ -15,16 +16,19 @@
 (defn- changes
   "Include a styled list by adding strings to (ul ...)."
   []
-  (ul "Now, the subscriptions are expanded and events are contracted with interceptors to simplify logic."
-      "A status light panel indicates whether a button is on using local state and the same event as each button."
-      [:<> [:a {:href "https://github.com/luciodale/fork" :target "_blank"} "fork"] " is overkill when no typical form submissions occur."]))
+  (ul "I introduced a new state array and multimethod which turns parameters into a series of rules."
+      "Each rule is applied to the value matrix when time is updated."
+      "Currently the only way to progress the state, applying the rules, is with the Tick button: 1 step forward."
+      "No rules are specified in the default state, so Tick does not do anything currently."))
 
 (defn- questions
   "Include styled questions and answers with a sequence of (qa str str) forms."
   []
   [:article.qa
-   (qa "What's intercepted?"
-       "I originally split logic across events because the form handled submission in a nested map. The input on-change handler pares the values and the interceptor coerces coordinates in a vector to ints.")])
+   (qa "What's implemented so far?"
+       "Buffers and a T flip-flop")
+   (qa "What's the point?"
+       "Add a UI for creation, ordering, and deletion of logic gates with specified parameters and you can build circuitry.")])
 
 (defn afterword
   "Acts like a note section or changelog. Add your content inline via the included components."

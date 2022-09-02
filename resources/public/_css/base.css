@@ -226,10 +226,13 @@ main {
   display: flex;
   flex-direction: row;
   align-self: flex-start;
+  gap: 0.5rem;
 }
+/* Center panel row if alone */
 .panel span:only-of-type {
   align-self: center;
 }
+/* Increase padding above and below panel rows */
 .panel span:first-of-type {
   padding-top: 0.5rem;
 }
@@ -237,15 +240,19 @@ main {
   padding-bottom: 0.5rem;
 }
 .panel label {
-  padding-right: 0.5rem;
   font-size: 1.3rem;
   font-weight: 700;
 }
+/* Space out subsequent labels */
 .panel label ~ label {
-  padding-left: 1rem;
+  padding-left: 0.5rem;
+}
+.panel aside {
+  font-size: 0.8rem;
+  font-weight: 700;
+  filter: brightness(0.95);
 }
 .panel input {
-  padding: 0 0.5rem;
   background: rgba(250, 240, 230, 0.3);
   border: 1px solid linen;
   border-radius: 0;
@@ -273,6 +280,9 @@ main {
 .panel button:active {
   filter: brightness(0.97);
   border: 2px inset bisque;
+}
+.panel button:has(+ aside) {
+  width: unset;
 }
 
 .led {

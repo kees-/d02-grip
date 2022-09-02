@@ -1,6 +1,8 @@
 (ns kees.grip.rf
   (:require
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx reg-sub reg-fx reg-cofx path ->interceptor]]
+   [cljs.reader :as reader]
+   [cljs.pprint :refer [pprint]]
    [kees.grip.logic :as logic]))
 
 ;; ========== SETUP ============================================================
@@ -21,10 +23,35 @@
              (update-in context [:coeffects :event 1] #(mapv int %)))))
 
 ;; ========== EFFECTS ==========================================================
+(reg-fx
+ :console
+ (fn [arg]
+   (-> arg js/console.info)))
+
+(reg-fx
+ :obj->clipboard
+ (fn [text]
+   (->> text pprint with-out-str (.writeText js/navigator.clipboard))))
+
+(reg-event-fx
+ ::state->console
+ (fn [{:keys [db]} _]
+   {:fx [[:console db]]}))
+
+(reg-event-fx
+ ::state->clipboard
+ (fn [{:keys [db]} _]
+   {:fx [[:obj->clipboard db]]}))
+
 (reg-event-fx
  ::boot
  (fn [_ _]
    {:db default-db}))
+
+(reg-event-fx
+ ::read-state
+ (fn [db [_ new-db]]
+   (->> new-db reader/read-string (merge db))))
 
 ; Take every rule present and apply it to the grid back-to-front
 (reg-event-fx

@@ -96,6 +96,17 @@
    [:p "Tick"]
    [submit #(>evt [::rf/tick])]])
 
+(defn utilities
+  []
+  [:div.panel
+   [:p "Utilities"]
+   [:span
+    [submit #(>evt [::rf/state->clipboard])]
+    [:aside "Copy state to clipboard"]]
+   [:span
+    [submit #(>evt [::rf/state->console])]
+    [:aside "Print state to console"]]])
+
 (defn control-panel
   []
   [:div.control-panel
@@ -103,4 +114,5 @@
    [single-button-status]
    [add-rule]
    [active-rules]
-   [tick-trigger]])
+   [tick-trigger]
+   [utilities]])

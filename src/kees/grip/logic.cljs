@@ -3,7 +3,11 @@
 (def method-string-names
   {:buffer "Buffer"
    :not "Not"
-   :t-flip-flop "T Flip-Flop"})
+   :t-flip-flop "T Flip-Flop"
+   :and "And"
+   :or "Or"
+   :nand "Nand"
+   :nor "Nor"})
 
 (defmulti rules :type)
 (defmethod rules :default
@@ -22,6 +26,31 @@
  (let [[in out] params]
    (fn [m]
      (assoc-in m out (not (get-in m in))))))
+
+(defmethod rules :and
+  [{:keys [params]}]
+  (let [[{:keys [ins out]}] params]
+    (fn [m]
+      (assoc-in m out (every? true? (map #(get-in m %) ins))))))
+
+(defmethod rules :or
+  [{:keys [params]}]
+  (let [[{:keys [ins out]}] params]
+    (fn [m]
+      (assoc-in m out (some true? (map #(get-in m %) ins))))))
+
+
+(defmethod rules :nand
+  [{:keys [params]}]
+  (let [[{:keys [ins out]}] params]
+    (fn [m]
+      (assoc-in m out (some false? (map #(get-in m %) ins))))))
+
+(defmethod rules :nor
+  [{:keys [params]}]
+  (let [[{:keys [ins out]}] params]
+    (fn [m]
+      (assoc-in m out (every? false? (map #(get-in m %) ins))))))
 
 ; If in -> toggle out
 (defmethod rules :t-flip-flop

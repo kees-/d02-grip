@@ -26,9 +26,9 @@
   []
   [:article.qa
    (qa "What's implemented so far?"
-       "Buffer, Not, and T flip-flop")
+       "Most of the basic logic gates. See the dropdown for list")
    (qa "What goes in the params field?"
-       [:<> "Currently all three rule types accept two " [:code "[x y]"] " coordinate vectors for in and out coords."])
+       [:<> "Single input rules accept two " [:code "[x y]"] " coordinate vectors for in and out coords. Gates with multiple inputs take format " [:code "{:ins [[x y] [x y]] :out [x y]}"] ", which I will standardize."])
    (qa "What's the point?"
        "Add a UI for creation, ordering, and deletion of logic gates with specified parameters and you can build circuitry.")])
 

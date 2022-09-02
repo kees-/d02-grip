@@ -10,7 +10,7 @@
  `002-list-lookup-state` | Grid toggle is refactored to use state
  `003-bool-array-state` | Grid state is improved
  `004-control-panel` | Input panels for grid interaction
- `005-ruleset` | **Unreleased:** Apply a stateful series of logic gates
+ `005-ruleset` | Apply a stateful series of logic gates
 
 </details>
 
@@ -34,7 +34,7 @@ Currently I need to work on custom formatting indices and page navigation, then 
 
 ---
 
-<details open>
+<details>
 <summary>View the loose initial roadmap</summary>
 
 > - :books: Section
@@ -52,6 +52,8 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 	- :pencil2: Add some notes
 		- :white_check_mark: Basic information
 		- Mindset and goals
+- :books: Important fixes
+	- Mobile layout
 - :white_check_mark: Basic statefulness
 	- :white_check_mark: High-low state values
 	- :white_check_mark: Boolean array state values
@@ -101,9 +103,8 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 		- Save state and rules as accessible program
 	- Data transforms
 		- :pencil2: Logic gates
-			- :white_check_mark: Buffer
-			- :white_check_mark: T flip-flop
-			- ...
+			- :white_check_mark: Basic unary & $n$-ary gates
+			- XOR, XNOR
 		- Logic gate status lights, styling, diagrams
 - :books: Evolution
 	- Stepwise re-render, time

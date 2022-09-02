@@ -23,15 +23,13 @@
       [:p "Toggle a single button"]
       [:span
        [:label {:name "x"} "X:"]
-       [:input.w2r {:name "x"
-                    :placeholder "X"
-                    :value x
-                    :on-change handle-change}]
+       [:input.numerical-input {:name "x"
+                                :value x
+                                :on-change handle-change}]
        [:label {:name "y"} "Y:"]
-       [:input.w2r {:name "y"
-                    :placeholder "Y"
-                    :value y
-                    :on-change handle-change}]]
+       [:input.numerical-input {:name "y"
+                                :value y
+                                :on-change handle-change}]]
       [submit handle-submit]])])
 
 (defn led
@@ -47,13 +45,13 @@
        [:p "Status of a single button"]
        [:span
         [:label {:name "x"} "X:"]
-        [:input.w2r {:name "x"
-                     :value (@coord 0)
-                     :on-change #(->> % .-target .-value int (swap! coord assoc 0))}]
+        [:input.numerical-input {:name "x"
+                                 :value (@coord 0)
+                                 :on-change #(->> % .-target .-value (swap! coord assoc 0))}]
         [:label {:name "y"} "Y:"]
-        [:input.w2r {:name "y"
-                     :value (@coord 1)
-                     :on-change #(->> % .-target .-value int (swap! coord assoc 1))}]]
+        [:input.numerical-input {:name "y"
+                                 :value (@coord 1)
+                                 :on-change #(->> % .-target .-value (swap! coord assoc 1))}]]
        [led @coord]])))
 
 (defn add-rule

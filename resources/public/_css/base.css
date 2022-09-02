@@ -292,8 +292,10 @@ main {
   filter: brightness(0.95);
   font-size: 0.8rem;
   font-weight: 700;
+  align-self: center;
 }
 .panel input {
+  padding-left: 0.35rem;
   background: rgba(250, 240, 230, 0.3);
   border: 1px solid linen;
   border-radius: 0;
@@ -305,14 +307,21 @@ main {
   outline: 2px solid white;
   background: rgba(250, 240, 230, 0.2);
 }
+.panel input::selection {
+  background: powderblue;
+}
 .panel select {
+  padding-left: 0.2rem;
   background: linen;
   color: dimgray;
   font-family: monospace;
   font-size: 0.85rem;
 }
+.panel select:focus, .panel button:focus {
+  outline: 2px solid white;
+}
 .panel button {
-  width: 3rem;
+  width: 3.3rem;
   background-color: wheat;
   border: 2px outset bisque;
   border-radius: 0.2rem;
@@ -322,10 +331,10 @@ main {
   line-height: 1.2rem;
 }
 .panel button:hover {
-  filter: brightness(1.02);
+  filter: brightness(1.03);
 }
 .panel button:active {
-  filter: brightness(0.97);
+  filter: brightness(0.98);
   border: 2px inset bisque;
 }
 /* Make button text move with inset-outset illusion */
@@ -358,5 +367,8 @@ main {
   font-family: monospace;
 }
 
-.w2r { width: 2rem; }
+.panel .numerical-input {
+  width: 2rem;
+  padding-left: 0;
+}
 

@@ -29,7 +29,8 @@
    [:footer
     [:hr]
     [:nav
-     [:span>a#previous {:href "{{PREVIOUS}}"} "Previous"]
-     [:span>a#index {:href "{{INDEX}}"} "Index"]
-     [:span>a#next {:href "{{NEXT}}"} "Next"]]
+     ; Span keywords are necessary for nav rewrite script
+     [:span>a#previous {:href "{{PREVIOUS}}" :class nil} "Previous"]
+     [:span>a#index {:href ".."} "Index"]
+     [:span>a#next {:href "{{NEXT}}" :class nil} "Next"]]
     [footer/afterword]]])

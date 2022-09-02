@@ -50,6 +50,7 @@
         mains-ordered (->> (conj mains branch-prefix)
                            (map (comp first
                                       branch-prefix-format))
+                           (remove #(= \_ (first %)))
                            set
                            sort
                            reverse)]

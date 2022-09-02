@@ -30,18 +30,22 @@ ol {
   padding: 0;
 }
 code {
-  font-family: monospace;
+  /* Sizing */
+  padding: 0 0.25rem 0.1rem;
+
+  /* Styling */
   background-color: linen;
-  border-radius: 0.3rem;
-  padding: 0 0.25rem;
-  font-size: 0.9em;
   filter: brightness(1.05);
-  padding-bottom: 2px;
+  border-radius: 0.3rem;
+
+  /* Type */
+  font-family: monospace;
+  font-size: 0.9em;
 }
 
 a {
-  text-decoration: underline;
   color: inherit;
+  text-decoration: underline;
 }
 a:active {
   filter: brightness(1.15);
@@ -57,7 +61,6 @@ a:hover {
 
 /* ========== SIDE SECTIONS ================================================= */
 header, footer {
-  width: 100%;
   padding: 2rem 3rem 2rem;
 }
 header h1 {
@@ -70,7 +73,9 @@ footer nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
-footer nav span {
+
+/* Ensure good spacing: width of nav links don't push each other */
+footer nav > span {
   display: flex;
   flex-direction: column;
 }
@@ -83,10 +88,11 @@ footer nav span {
 #next {
   align-self: flex-end;
 }
+
 footer nav a {
   padding: 0.1rem 0.3rem;
-  text-decoration: none;
   color: ivory;
+  text-decoration: none;
   font-size: 1.1rem;
   font-weight: 700;
 }
@@ -94,14 +100,14 @@ footer nav a:visited {
   color: linen;
 }
 footer nav a:hover {
-  text-decoration: none;
   background: ivory;
   color: burlywood;
+  text-decoration: none;
 }
 footer nav a:active {
-  text-decoration: none;
   background: none;
   color: ivory;
+  text-decoration: none;
 }
 
 .afterword {
@@ -111,6 +117,7 @@ footer nav a:active {
   max-width: 550px;
   min-width: 350px;
 
+  /* Layout */
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -159,7 +166,10 @@ footer nav a:active {
 
 /* ========== MAIN CONTENT LAYOUT =========================================== */
 main {
+  /* Sizing and position */
   margin: 2rem;
+
+  /* Layout */
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -224,28 +234,33 @@ main {
 .control-panel {
   display: flex;
   flex-flow: row wrap;
-  gap: 1rem;
-  align-items: flex-start;
   flex: 2 0;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .panel {
+  /* Sizing and position */
+  padding: 0.5rem 1rem  0.75rem;
+  max-width: max-content;
+
+  /* Layout */
   display: flex;
   flex-direction: column;
   justify-content: stretch;
   align-items: center;
-  max-width: max-content;
-  padding: 0.5rem 1rem  0.75rem;
   gap: 0.5rem;
+
+  /* Styling */
   backdrop-filter: brightness(0.96);
   -webkit-backdrop-filter: brightness(0.96);
 }
 .panel p {
-  font-style: italic;
-  font-weight: 500;
-  text-align: center;
   padding-bottom: 0.05rem;
   border-bottom: 1px solid floralwhite;
+  text-align: center;
+  font-style: italic;
+  font-weight: 500;
 }
 .panel span {
   padding: 0;
@@ -274,17 +289,17 @@ main {
   padding-left: 0.5rem;
 }
 .panel aside {
+  filter: brightness(0.95);
   font-size: 0.8rem;
   font-weight: 700;
-  filter: brightness(0.95);
 }
 .panel input {
   background: rgba(250, 240, 230, 0.3);
   border: 1px solid linen;
   border-radius: 0;
   color: ivory;
-  font-weight: 500;
   text-align: center;
+  font-weight: 500;
 }
 .panel input:focus {
   outline: 2px solid white;
@@ -293,17 +308,17 @@ main {
 .panel select {
   background: linen;
   color: dimgray;
-  font-size: 0.85rem;
   font-family: monospace;
+  font-size: 0.85rem;
 }
 .panel button {
+  width: 4rem;
   background-color: wheat;
   border: 2px outset bisque;
-  color: ivory;
   border-radius: 0.2rem;
-  width: 4rem;
-  font-size: 1.25rem;
+  color: ivory;
   text-align: center;
+  font-size: 1.25rem;
   line-height: 1rem;
 }
 .panel button:hover {
@@ -320,23 +335,23 @@ main {
 .led {
   height: 1rem;
   width: 1rem;
+  background: rgba(173, 255, 47, 0.5);
+  box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.5);
   border: 1px solid silver;
   border-radius: 50%;
-  box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.5);
-  background: rgba(173, 255, 47, 0.5);
 }
 .bright {
-  border: 1px solid greenyellow;
   background: rgba(173, 255, 47, 0.9);
   box-shadow: 0 0 0.65rem 0.1rem greenyellow, inset 0 0 0.25rem rgba(255, 255, 255, 0.7);
+  border: 1px solid greenyellow;
 }
 
 .panel code {
   color: silver;
 }
 .panel .code-field {
-  font-family: monospace;
   text-align: left;
+  font-family: monospace;
 }
 
 .w2r { width: 2rem; }

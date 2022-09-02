@@ -28,7 +28,7 @@
    (qa "What's implemented so far?"
        "Most of the basic logic gates. See the dropdown for list")
    (qa "What goes in the params field?"
-       [:<> "Single input rules accept two " [:code "[x y]"] " coordinate vectors for in and out coords. Gates with multiple inputs take format " [:code "{:ins [[x y] [x y]] :out [x y]}"] ", which I will standardize."])
+       [:<> "All current gates accept a map with one " [:code ":out [x y]"] " and " [:code ":in [x y]"] " or " [:code ":ins [[x y] [x y] ...]"] " depending on number of inputs accepted. All gates are unary or n-ary."])
    (qa "What's the point?"
        "Add a UI for creation, ordering, and deletion of logic gates with specified parameters and you can build circuitry.")])
 

@@ -79,7 +79,7 @@
        [submit #(do
                   (>evt [::rf/add-rule
                          {:type (edn/read-string @new-rule-type)
-                          :params (edn/read-string (str "[" @new-rule-params "]"))}])
+                          :params (edn/read-string @new-rule-params)}])
                   (reset! new-rule-params ""))]])))
 
 (defn active-rules

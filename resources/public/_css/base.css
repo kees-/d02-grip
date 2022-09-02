@@ -25,6 +25,10 @@ ul {
   gap: .4rem;
   padding: 1rem;
 }
+ol {
+  list-style-position: inside;
+  padding: 0;
+}
 code {
   font-family: monospace;
   background-color: linen;

@@ -62,7 +62,7 @@
         new-rule-params (r/atom "")]
     (fn []
       [:div.panel
-       [:p "Add a new rule (LIFO)"]
+       [:p "Add a new rule (FIFO)"]
        [:span
         [:label {:name "type"} "Type:"]
         (into
@@ -84,11 +84,12 @@
 
 (defn active-rules
   []
-  (into
-   [:div.panel
-    [:p "Currently active rules:"]]
-   (for [rule (<sub [::rf/active-rules])]
-     [:span>code (str rule)])))
+  [:div.panel
+   [:p "Currently active rules"]
+   (into
+    [:span>ol]
+    (for [rule (reverse (<sub [::rf/active-rules]))]
+      [:li>code (str rule)]))])
 
 (defn tick-trigger
   []

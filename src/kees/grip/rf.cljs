@@ -13,7 +13,7 @@
 
 (def default-db
   {:on (vec (repeat 8 (vec (repeat 8 false))))
-   :rules []})
+   :rules (list)})
 
 ; Ensure maps of coordinates passed to handlers are ints
 (def vec->ints

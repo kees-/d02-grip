@@ -9,7 +9,7 @@
   [handler]
   [:button
    {:on-click handler}
-   (char 10173)])
+   [:div (char 10148)]])
 
 (defn- toggle-single-button-form
   []

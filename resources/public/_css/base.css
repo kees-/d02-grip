@@ -167,7 +167,7 @@ footer nav a:active {
 /* ========== MAIN CONTENT LAYOUT =========================================== */
 main {
   /* Sizing and position */
-  margin: 2rem;
+  margin: 2rem 3rem;
 
   /* Layout */
   display: flex;
@@ -312,14 +312,14 @@ main {
   font-size: 0.85rem;
 }
 .panel button {
-  width: 4rem;
+  width: 3rem;
   background-color: wheat;
   border: 2px outset bisque;
   border-radius: 0.2rem;
   color: ivory;
   text-align: center;
   font-size: 1.25rem;
-  line-height: 1rem;
+  line-height: 1.2rem;
 }
 .panel button:hover {
   filter: brightness(1.02);
@@ -327,6 +327,10 @@ main {
 .panel button:active {
   filter: brightness(0.97);
   border: 2px inset bisque;
+}
+/* Make button text move with inset-outset illusion */
+.panel button:active > div {
+  margin: 1.5px -1.5px -1.5px 1.5px;
 }
 .panel button:has(+ aside) {
   width: unset;

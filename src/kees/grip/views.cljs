@@ -14,7 +14,7 @@
 (defn grid
   []
   (into
-   [:div.container]
+   [:div.board]
    (for [y (range 8) x (range 8)]
      [cell [x y]])))
 

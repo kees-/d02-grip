@@ -77,6 +77,11 @@
  (fn [db [_ {:keys [type params]}]]
    (update db :rules conj {:type type :params params})))
 
+(reg-event-db
+ ::clear-rules
+ (fn [db _]
+   (assoc db :rules (list))))
+
 ;; ========== SUBSCRIPTIONS ====================================================
 (reg-sub
  ::on?

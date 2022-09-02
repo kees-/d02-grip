@@ -106,7 +106,10 @@
     [:aside "Copy state to clipboard"]]
    [:span
     [submit #(>evt [::rf/state->console])]
-    [:aside "Print state to console"]]])
+    [:aside "Print state to console"]]
+   [:span
+    [submit #(>evt [::rf/clear-rules])]
+    [:aside "Remove all current rules"]]])
 
 (defn control-panel
   []
@@ -114,6 +117,6 @@
    [toggle-single-button-form]
    [single-button-status]
    [add-rule]
-   [active-rules]
    [tick-trigger]
+   [active-rules]
    [utilities]])

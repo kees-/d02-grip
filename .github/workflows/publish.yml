@@ -82,9 +82,12 @@ jobs:
       # AWS CLI may be bulkier for these purposes,
       # But has less friction for executing one-liners.
       # Source: https://github.com/unfor19/install-aws-cli-action
-      # Using a script instead of marketplace for hands-on control
       - name: Install AWS CLI
         uses: unfor19/install-aws-cli-action@v1.0.3
+        with:
+          version: 2
+          verbose: true
+          arch: amd64
         # run: script/aws-install
 
       # Babashka is used for rewrite-clj tasks

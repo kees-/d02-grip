@@ -1,5 +1,9 @@
 # kees/grip
 
+https://user-images.githubusercontent.com/6820950/189215425-957c72d6-dc08-431e-863b-8d3fda5d242e.mp4
+
+An XOR gate with inputs at $7,0$ and $7,1$ outputting at $5,0$.
+
 <details open>
 <summary>What's in each branch of this project?</summary>
 
@@ -14,7 +18,10 @@
 
 </details>
 
-Develop on the project on any given branch:
+---
+
+<details>
+<summary>Develop on the project on any given branch:</summary>
 
 ```sh
 npm i
@@ -24,11 +31,13 @@ open http://localhost:8280/
 
 The project is not meant to be built manually but it can be done with `npm run release`.
 
+</details>
+
 ---
 
-I am working on a unique CI/CD workflow using branches instead of releases. All development occurs on `main`. A branch is created at any milestone which will publish IN PARALLEL to all other branches. I use numerical prefixes which is ultimately arbitrary.
+I am working on a unique CI/CD workflow using branches instead of releases. All development occurs either on `main` or a local branch. A branch is pushed at any milestone which will publish IN PARALLEL to all other branches. I use numerical prefixes which is arbitrary but conveniently sorts chronologically.
 
-Currently I need to work on custom formatting indices and page navigation, then the effect will work. I want a visitor to step through live builds to see the progress and if interested, read thoughts on them. Some ideas are using a template parser (i.e [selmer, included in babashka](https://book.babashka.org/#built-in-namespaces), which could be run from the repo or [in an action](https://github.com/marketplace/actions/setup-clojure)), or scraping the existing live pages and forcing in new dom nodes.
+Currently I need to work on custom formatting indices and page navigation, then the effect will work. I want a visitor to step through live builds to see the progress and if interested, read thoughts on them. Realistically the solution will be a canvas page that uses `rewrite-clj` on publish and embeds live builds in an iframe.
 
 **For now, view the main branch here:** [hardly.link/projects/d02-grip/](https://hardly.link/projects/d02-grip/)
 
@@ -53,7 +62,7 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 		- :white_check_mark: Basic information
 		- Mindset and goals
 - :books: Important fixes
-	- Mobile layout
+	- :pencil2: Mobile layout
 - :white_check_mark: Basic statefulness
 	- :white_check_mark: High-low state values
 	- :white_check_mark: Boolean array state values
@@ -77,6 +86,7 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 					- :white_check_mark: Versions (e.g `003`)
 					- Variants (e.g `003a`)
 				- :pencil2: Create back and next buttons
+					- *rewrite-clj to add vector of all populated sorted branches to views and dynamically choose current +1 and -1*
 			- :green_book: Further dom population
 				- Insert github link to repo branch
 				- Basic info "built from xxx in user/repo"

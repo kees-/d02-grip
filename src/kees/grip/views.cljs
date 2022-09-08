@@ -3,7 +3,14 @@
             [kees.grip.views.footer :as footer]
             [kees.grip.views.forms :as forms]))
 
-(defn cell
+(defn- nav
+  []
+  [:nav
+   [:span>a#previous {:href "{{PREVIOUS}}" :class nil} "Previous"]
+   [:span>a#index {:href "../grip.html"} "Index"]
+   [:span>a#next {:href "{{NEXT}}" :class nil} "Next"]])
+
+(defn- cell
   [coord]
   (let [color (<sub [::rf/button-color coord])]
     [:div.cell
@@ -11,7 +18,7 @@
       {:style {:background-color color}
        :on-click #(>evt [::rf/toggle-button coord])}]]))
 
-(defn grid
+(defn- grid
   []
   (into
    [:div.board]
@@ -28,9 +35,5 @@
     [forms/control-panel]]
    [:footer
     [:hr]
-    [:nav
-     ; Span keywords are necessary for nav rewrite script
-     [:span>a#previous {:href "{{PREVIOUS}}" :class nil} "Previous"]
-     [:span>a#index {:href "../grip.html"} "Index"]
-     [:span>a#next {:href "{{NEXT}}" :class nil} "Next"]]
+    [nav]
     [footer/afterword]]])

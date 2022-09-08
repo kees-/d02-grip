@@ -44,8 +44,8 @@
 (defn write-index-page
   [& args]
   (let [{:keys [branch-prefix] :as edn} (-> *command-line-args*
-                                     (cli/parse-opts cli-opts)
-                                     :options)
+                                            (cli/parse-opts cli-opts)
+                                            :options)
         mains (live-branches edn)
         mains-ordered (->> (conj mains branch-prefix)
                            (map (comp first

@@ -64,33 +64,44 @@ footer ul {
 
 footer nav {
   margin: 0.75rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Ensure good spacing: width of nav links don't push each other */
+footer nav > span {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+}
+#previous {
+  align-self: flex-start;
+}
+#index {
+  align-self: center;
+}
+#next {
+  align-self: flex-end;
 }
 
 footer nav a {
   padding: 0.1rem 0.3rem;
-  text-decoration: none;
   color: ivory;
+  text-decoration: none;
   font-size: 1.1rem;
   font-weight: 700;
 }
-
 footer nav a:visited {
   color: linen;
 }
-
 footer nav a:hover {
-  text-decoration: none;
   background: ivory;
   color: burlywood;
-}
-
-footer nav a:active {
   text-decoration: none;
+}
+footer nav a:active {
   background: none;
   color: ivory;
+  text-decoration: none;
 }
 
 .afterword {

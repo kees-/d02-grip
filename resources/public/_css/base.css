@@ -54,6 +54,10 @@ a:hover {
   opacity: 0.75;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 /* ========== SIDE SECTIONS ================================================= */
 header, footer {
   width: 100%;

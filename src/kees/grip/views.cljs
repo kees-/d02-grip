@@ -29,7 +29,7 @@
    [:footer
     [:hr]
     [:nav
-     [:span>a#previous {:href "{{PREVIOUS}}"} "Previous"]
-     [:span>a#index {:href "{{INDEX}}"} "Index"]
-     [:span>a#next {:href "{{NEXT}}"} "Next"]]
+     [:span>a#previous {:href "../004"} "Previous"]
+     [:span>a#index {:href "../grid.html"} "Index"]
+     [:span>a#next.hidden {:href "#"} "Next"]]
     [footer/afterword]]])

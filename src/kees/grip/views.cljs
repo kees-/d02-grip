@@ -33,6 +33,10 @@
     [grid]]
    [:footer
     [:hr]
+    [:nav
+     [:span>a#previous.hidden {:href "#"} "Previous"]
+     [:span>a#index {:href "../grid.html"} "Index"]
+     [:span>a#next {:href "../002"} "Next"]]
     [:ul
      [:li "There is no state."]
      [:li "Button activation is controlled by toggling a class onto and off of elements by id."]

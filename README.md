@@ -120,4 +120,33 @@ What is this list formatting? I’m trying out a style of list [I wrote about ad
 	- Stepwise re-render, time
 	- :white_check_mark: Tick
 
+(archival)
+
+- Mouse tools
+	- Bit flip
+	- Bit sel
+	- Chip place
+- Hover
+	- Chip coordinates
+- Creation QOL
+	- Edit
+	- Delete
+	- Reorder
+- Abstraction
+	- Save
+		- Preserve
+			- Default state
+			- Ordered ruleset
+		- Define
+			- In targets
+	- Use
+		- Select a preserve
+		- Define points of connection (i/o targets)
+		- Invisible logic implementation
+		- Output notes
+- Console
+- Sfx
+	- High
+	- Medium
+
 </details>
